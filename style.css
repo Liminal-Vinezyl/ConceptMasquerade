@@ -1,0 +1,694 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+/* Add hero image to snap points */
+.hero-image {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+}
+
+/* Add description section to snap points */
+.description-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+}
+
+/* Keep existing snap settings for other sections */
+.snap-target {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+}
+
+/* Keep character section's weaker snap */
+.characters-section {
+    scroll-snap-type: y proximity;
+    scroll-snap-align: proximity;
+    scroll-snap-stop: normal;
+    scroll-margin-top: 20px;
+}
+
+/* Keep strong snap for gallery and contact */
+#gallery,
+#contact {
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scroll-margin-top: 0;
+}
+
+body {
+    font-family: 'Cinzel', serif;
+    line-height: 1.6;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow-y: auto;
+    background-color: #0c020f;
+}
+
+/* Sticky Header */
+.sticky-header {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0 40px;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header container - initial state */
+.sticky-header .container-xl {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(12, 2, 15, 0.95);
+    border-radius: 2px;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the content */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sticky-header.scrolled {
+    top: 0;
+    padding: 0;
+}
+
+.sticky-header.scrolled .container-xl {
+    justify-content: flex-end;
+    max-width: 100%;
+    border-radius: 0;
+    padding: 8px 40px;
+    margin: 0;
+}
+
+.sticky-header.scrolled .logo {
+    margin-right: auto;
+}
+
+.sticky-header.scrolled #normal-menu {
+    margin-left: auto;
+}
+
+/* Navigation menu - initial state */
+#normal-menu {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#normal-menu ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Logo */
+.sticky-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center; /* Center logo and text */
+    transform: translateX(0);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 10px; /* Add some padding around logo */
+}
+
+.sticky-header .logo img {
+    height: 35px; /* Slightly smaller */
+    width: 35px;
+    border-radius: 3px; /* More squared off */
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.sticky-header.scrolled .logo img {
+    height: 32px;
+    width: 32px;
+}
+
+.sticky-header .logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.sticky-header.scrolled .logo a {
+    color: #222;
+    text-shadow: none;
+}
+
+.sticky-header.scrolled .logo {
+    transform: translateX(-40px);  /* Push further left */
+}
+
+/* Button styles */
+#normal-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 2px solid white;
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#normal-menu li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffcc00;
+    color: #ffcc00;
+}
+
+/* Common button styles */
+#normal-menu li a,
+#character-sorter-menu button {
+    height: 45px;
+    min-width: 120px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Character sorter menu */
+#character-sorter-menu {
+    max-width: 100%;
+    padding: 12px 40px; /* Match scrolled header padding */
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                visibility 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(12, 2, 15, 0.95); /* Match base color but with transparency */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1001;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+#character-sorter-menu.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#character-sorter-menu .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transform: translateX(-20px); /* Match scrolled header transform */
+}
+
+#character-sorter-menu .logo img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#character-sorter-menu .logo span {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    color: white;
+    font-size: 20px;
+}
+
+/* Move sort buttons to right */
+.sorter-buttons {
+    display: flex;
+    gap: 15px;
+    margin-left: auto;
+    transform: translateX(20px); /* Match scrolled header transform */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#character-sorter-menu button {
+    border: 2px solid white;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-family: 'Cinzel', serif;
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Common hover states */
+#normal-menu li a:hover,
+#character-sorter-menu button:hover,
+#character-sorter-menu button.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ff6600;
+    color: #ff6600;
+    box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+    text-shadow: 0 0 8px rgba(255, 102, 0, 0.3);
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 180px;
+    background: rgba(12, 2, 15, 0.95);
+    border-radius: 4px;
+    padding: 8px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    pointer-events: all; /* Changed from none to all */
+}
+
+/* Add invisible bridge to prevent gap */
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: transparent;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-item {
+    width: 100%;
+    padding: 8px 16px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffcc00;
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+/* Snap scroll styles */
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+/* Add description section to snap points */
+.description-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+}
+
+/* Keep existing snap settings for other sections */
+.snap-target {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+}
+
+/* Keep character section's weaker snap */
+.characters-section {
+    scroll-snap-type: y proximity;
+    scroll-snap-align: proximity;
+    scroll-snap-stop: normal;
+    scroll-margin-top: 20px;
+}
+
+/* Keep strong snap for gallery and contact */
+#gallery,
+#contact {
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scroll-margin-top: 0;
+}
+
+/* --- Hero Image Section --- */
+.hero-image {
+  width: 100%;
+  height: 35vh; /* Reduced from 45vh to 35vh */
+  background-image: url('https://static.wixstatic.com/media/3e9217_4a0b78b1678f4e5d8eaaa87b5b68996d~mv2.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-overlay {
+  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for readability */
+  padding: 20px 40px;
+  border-radius: 8px;
+}
+
+.hero-overlay h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Main Section Styles --- */
+main section {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+main section:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Project Intro Section */
+.project-intro {
+    position: relative;
+    margin-top: -25vh; /* Makes box overlap with hero image */
+    padding: 40px 20px;
+    z-index: 2;
+}
+
+.intro-box {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    background: rgba(20, 5, 25, 0.9); /* Slightly lighter than base for contrast */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.intro-box h2 {
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: white;
+}
+
+.social-links {
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-links .divider {
+    color: #666;
+    font-weight: 300;
+}
+
+.social-links i {
+    font-size: 20px;
+}
+
+.social-links a:hover {
+    color: #ff6600;
+}
+
+/* Description Section */
+.description-section {
+    padding: 60px 20px;
+    background: rgba(12, 2, 15, 0.8); /* Slightly lighter than base for depth */
+    position: relative;
+    z-index: 1;
+}
+
+.description-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.description-content p {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: white;
+    font-family: 'Cinzel', serif;
+}
+
+.description-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Gallery and Contact Sections */
+.gallery-content,
+.contact-content {
+    margin-top: 30px;
+}
+
+/* Character Section */
+.characters-section {
+    min-height: 100vh;
+    padding: 80px 20px 40px;
+    background: #32174D;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Keep existing visibility state */
+.characters-section.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.characters-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    color: white;
+    padding-top: 20px; /* Additional padding for the title */
+}
+
+/* Character showcase container */
+.character-showcase-container {
+    position: relative;
+    width: 100%;
+    padding: 0 40px;
+    margin: 0 auto;
+}
+
+.character-showcase {
+    display: flex;
+    gap: 40px;
+    padding: 20px 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scroll-snap-type: x mandatory;
+}
+
+.character-showcase::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.character-card {
+    flex: 0 0 350px !important;  /* Increased width */
+    width: 350px;                /* Ensure its width is fixed at 350px */
+    scroll-snap-align: start;
+    background: rgba(25, 8, 30, 0.95);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 65vh;
+}
+
+.character-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.character-card img {
+    width: 100%;
+    height: calc(65vh - 100px); /* Match increased card height */
+    object-fit: cover;
+}
+
+.character-info {
+    padding: 30px;
+    text-align: center;
+    height: 100px; /* Keep info section height the same */
+}
+
+.character-info h3 {
+    margin: 0 0 8px 0; /* Increased bottom margin */
+    font-size: 1.4em; /* Increased font size */
+}
+
+.character-info p {
+    margin: 0;
+    color: #666;
+    font-size: 1em; /* Increased font size */
+}
+
+/* Scroll arrows */
+.scroll-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(12, 2, 15, 0.8);
+    border: 2px solid white;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.scroll-arrow:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ff6600;
+    color: #ff6600;
+}
+
+.scroll-arrow.left {
+    left: 20px;
+}
+
+.scroll-arrow.right {
+    right: 20px;
+}
+
+/* Contact Section */
+#contact {
+    min-height: 100vh;
+    padding: 80px 20px 40px;
+    background: #2A3439;
+    position: relative;
+    z-index: 1;
+}
+
+/* Character Details Panel */
+.character-details {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px;
+    margin-left: 20px;
+    border-radius: 8px;
+    width: calc(70% - 340px); /* Dynamically adjusts based on card width + margin */
+    min-width: 600px;
+    min-height: 65vh;
+    display: block;
+    vertical-align: top;
+    transition: transform 0.3s ease, width 0.3s ease;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+/* When a card is expanded, shift it a bit */
+.character-card.expanded {
+    transform: translateX(-10%);
+    transition: transform 0.3s ease;
+}
+
+/* Force horizontal flex on showcase container */
+.character-showcase-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    overflow-x: auto;
+    position: relative;
+}
+
+.character-showcase {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    flex-grow: 1;
+}
+
+.character-showcase > .character-card,
+.character-showcase > .character-details {
+    flex: 0 0 auto;
+}
+
+/* Optional: Style the link within the details panel */
+.character-page-link {
+    color: #ffcc00;
+    text-decoration: underline;
+}
+
+/* Optional: Style the close button inside the details panel */
+.character-details .close-details {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}

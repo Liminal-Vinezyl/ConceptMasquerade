@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and responsive design -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title of the document -->
+    <title>Concept Masquerade</title>
+
+    <!-- Link to external CSS stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+body {ml.snap-enabled {
+    font-family: 'Cinzel', serif;ry;
+    line-height: 1.6;
+    color: #fff; /* Adding white text color for better contrast */
+    margin: 0;
+    padding: 0;;
+    height: auto;
+    overflow-y: auto;
+    background-color: #0c020f;
+    }
+
+    .snap-target {
+      scroll-snap-align: start;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sticky Header -->
+  <header class="sticky-header">
+    <div class="container-xl">
+        <div class="logo">
+            <img src="https://static.wixstatic.com/media/3e9217_4a0b78b1678f4e5d8eaaa87b5b68996d~mv2.jpg" alt="Logo">
+            <a href="#">Concept Masquerade</a>
+        </div>
+        <nav id="normal-menu">
+            <ul>
+                <li><a href="#characters">Characters</a></li>
+                <li class="dropdown">
+                    <a href="https://kitsunecryo.wixsite.com/sharpgames" class="dropdown-toggle">Games</a>
+                    <div class="dropdown-menu">
+                        <a href="" class="dropdown-item">Game 1</a>
+                        <a href="#" class="dropdown-item">Game 2</a>
+                        <a href="#" class="dropdown-item">Game 3</a>
+                    </div>
+                </li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle">Store</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Buy Game 1</a>
+                        <a href="#" class="dropdown-item">Buy Game 2</a>
+                        <a href="#" class="dropdown-item">Merchandise</a>
+                    </div>
+                </li>
+                <li><a href="https://discord.gg/pvyUPFVcgS" target="_blank">Community</a></li>
+                <li><a href="https://kitsunecryo.wixsite.com/vinezyl/contacts">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+  </header>
+
+  <!-- Character Sorter Menu -->
+  <nav id="character-sorter-menu">
+    <div class="logo scroll-top">
+        <img src="https://static.wixstatic.com/media/3e9217_4a0b78b1678f4e5d8eaaa87b5b68996d~mv2.jpg" alt="Logo">
+        <span>Concept Masquerade</span>
+    </div>
+    <div class="sorter-buttons">
+        <button data-sort="type1">Type 1</button>
+        <button data-sort="type2">Type 2</button>
+        <button data-sort="type3">Type 3</button>
+    </div>
+</nav>
+
+  <section class="hero-image">
+    <div class="hero-overlay">
+        <h1>Concept Masquerade</h1>
+    </div>
+  </section>
+
+  <section class="project-intro">
+    <div class="intro-box">
+        <h2>Concept Masquerade</h2>
+        <div class="social-links">
+            <a href="https://youtube.com" target="_blank" rel="noopener">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <span class="divider">|</span>
+            <a href="https://twitter.com" target="_blank" rel="noopener">
+                <i class="fab fa-twitter"></i> Twitter
+            </a>
+            <span class="divider">|</span>
+            <a href="https://www.tiktok.com" target="_blank" rel="noopener">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+            <span class="divider">|</span>
+            <a href="https://bsky.app" target="_blank" rel="noopener">
+                <i class="fas fa-cloud"></i> Bluesky
+            </a>
+            <span class="divider">|</span>
+            <a href="https://kitsunecryo.wixsite.com/vinezyl" target="_blank" rel="noopener">
+                <i class="fas fa-globe"></i> Website
+            </a>
+        </div>
+        <p>A unique project blending storytelling and artistry.</p>
+    </div>
+</section>
+
+<section class="description-section">
+    <div class="description-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+</section>
+
+<section id="characters" class="characters-section snap-target">
+    <h2>Characters</h2>
+    <div class="character-showcase-container">
+        <button class="scroll-arrow left">←</button>
+        <div class="character-showcase">
+            <div class="character-card" data-type="type1">
+                <img src="https://via.placeholder.com/200x300?text=Character+1" alt="Character 1">
+                <div class="character-info">
+                    <h3>Character 1</h3>
+                    <p>Type 1</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type2">
+                <img src="https://via.placeholder.com/200x300?text=Character+2" alt="Character 2">
+                <div class="character-info">
+                    <h3>Character 2</h3>
+                    <p>Type 2</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type3">
+                <img src="https://via.placeholder.com/200x300?text=Character+3" alt="Character 3">
+                <div class="character-info">
+                    <h3>Character 3</h3>
+                    <p>Type 3</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type1">
+                <img src="https://via.placeholder.com/200x300?text=Character+4" alt="Character 4">
+                <div class="character-info">
+                    <h3>Character 4</h3>
+                    <p>Type 1</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type2">
+                <img src="https://via.placeholder.com/200x300?text=Character+5" alt="Character 5">
+                <div class="character-info">
+                    <h3>Character 5</h3>
+                    <p>Type 2</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type3">
+                <img src="https://via.placeholder.com/200x300?text=Character+6" alt="Character 6">
+                <div class="character-info">
+                    <h3>Character 6</h3>
+                    <p>Type 3</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type1">
+                <img src="https://via.placeholder.com/200x300?text=Character+7" alt="Character 7">
+                <div class="character-info">
+                    <h3>Character 7</h3>
+                    <p>Type 1</p>
+                </div>
+            </div>
+            <div class="character-card" data-type="type2">
+                <img src="https://via.placeholder.com/200x300?text=Character+8" alt="Character 8">
+                <div class="character-info">
+                    <h3>Character 8</h3>
+                    <p>Type 2</p>
+                </div>
+            </div>
+        </div>
+        <button class="scroll-arrow right">→</button>
+    </div>
+  </section>
+
+  <main>
+    <section id="gallery" class="snap-target">
+      <h2>Gallery</h2>
+      <div class="gallery-content">
+        <p>Here we'll showcase progress images of the project.</p>
+        <!-- Gallery content will go here -->
+      </div>
+    </section>
+
+    <section id="contact" class="snap-target">
+      <h2>Contact</h2>
+      <div class="contact-content">
+        <p>Information on how to reach out or follow the project.</p>
+        <!-- Contact content will go here -->
+      </div>
+    </section>
+  </main>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const charactersSection = document.getElementById('characters');
+    const normalMenu = document.getElementById('normal-menu');
+    const sorterMenu = document.getElementById('character-sorter-menu');
+    const scrollTopButton = document.querySelector('#character-sorter-menu .scroll-top');
+    const showcase = document.querySelector('.character-showcase');
+    const leftArrow = document.querySelector('.scroll-arrow.left');
+    const rightArrow = document.querySelector('.scroll-arrow.right');
+    const sorterButtons = document.querySelectorAll('#character-sorter-menu button');
+    const characterCards = document.querySelectorAll('.character-card');
+    let lastScrollTop = 0;
+    let hasSnapped = false;
+    let isSnapping = false;
+
+    if (!charactersSection || !normalMenu || !sorterMenu || !scrollTopButton) return;
+
+    // Function to handle scroll to top
+    function scrollToTop(e) {
+        e.preventDefault();
+        
+        // Disable snap temporarily
+        document.documentElement.classList.remove('snap-enabled');
+        hasSnapped = false;
+        
+        // Scroll to top
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Remove character section visibility
+        charactersSection.classList.remove('visible');
+        sorterMenu.classList.remove('visible');
+        normalMenu.classList.remove('hidden');
+    }
+
+    // Add click handlers to both header logos
+    scrollTopButton.addEventListener('click', scrollToTop);
+    document.querySelector('.sticky-header .logo').addEventListener('click', scrollToTop);
+
+    function onScroll() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        const isScrollingDown = currentScroll > lastScrollTop;
+
+        // Add scrolled class to header when scrolling down past hero
+        if (currentScroll > 50) {
+            document.querySelector('.sticky-header').classList.add('scrolled');
+        } else {
+            document.querySelector('.sticky-header').classList.remove('scrolled');
+        }
+
+        // Check if we're in the characters section for menu changes
+        const isInCharactersSection = 
+            currentScroll >= (charactersSection.offsetTop - window.innerHeight * 0.1) && 
+            currentScroll < (charactersSection.offsetTop + charactersSection.offsetHeight);
+
+        if (isInCharactersSection) {
+            normalMenu.classList.add('hidden');
+            sorterMenu.classList.add('visible');
+            charactersSection.classList.add('visible');
+        } else {
+            normalMenu.classList.remove('hidden');
+            sorterMenu.classList.remove('visible');
+            if (!isSnapping) {
+                charactersSection.classList.remove('visible');
+            }
+        }
+
+        // Update lastScrollTop
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }
+
+    window.addEventListener('scroll', onScroll);
+
+    // Character showcase scroll handlers
+    leftArrow?.addEventListener('click', () => {
+        const cards = Array.from(showcase.querySelectorAll('.character-card'));
+        const firstCard = cards[0];
+        const lastCard = cards[cards.length - 1];
+        
+        // Check if we're at the start
+        if (showcase.scrollLeft <= 0) {
+            // Move the last card to the front
+            showcase.removeChild(lastCard);
+            showcase.insertBefore(lastCard, firstCard);
+            // Maintain scroll position
+            showcase.scrollLeft = 320;
+        } else {
+            // Normal scroll behavior
+            showcase.scrollBy({
+                left: -320,
+                behavior: 'smooth'
+            });
+        }
+    });
+
+    rightArrow?.addEventListener('click', () => {
+        const cards = Array.from(showcase.querySelectorAll('.character-card'));
+        const firstCard = cards[0];
+        
+        // Check if we're at the end
+        if (showcase.scrollLeft >= showcase.scrollWidth - showcase.clientWidth - 10) {
+            // Move the first card to the end
+            showcase.removeChild(firstCard);
+            showcase.appendChild(firstCard);
+            // Maintain scroll position
+            showcase.scrollLeft = showcase.scrollLeft - 320;
+        } else {
+            // Normal scroll behavior
+            showcase.scrollBy({
+                left: 320,
+                behavior: 'smooth'
+            });
+        }
+    });
+
+    // Character sorting functionality
+    sorterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Toggle active class—multiple selections allowed
+            btn.classList.toggle('active');
+            
+            // Gather all active filter values
+            const activeFilters = Array.from(sorterButtons)
+                .filter(b => b.classList.contains('active'))
+                .map(b => b.getAttribute('data-sort'));
+            
+            if (activeFilters.length === 0) {
+                // If no filters are active, display all character cards.
+                characterCards.forEach(card => card.style.display = 'block');
+            } else {
+                characterCards.forEach(card => {
+                    const cardType = card.getAttribute('data-type');
+                    if (activeFilters.includes(cardType)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll('.character-card').forEach(card => {
+        card.addEventListener('click', function() {
+            // Handle collapse if already expanded
+            if(card.classList.contains('expanded')) {
+                const existingPanel = card.nextElementSibling;
+                if(existingPanel && existingPanel.classList.contains('character-details')) {
+                    existingPanel.remove();
+                    card.classList.remove('expanded');
+                    return;
+                }
+            }
+            
+            const showcase = card.closest('.character-showcase');
+            
+            // Remove existing panels and reset expanded states
+            showcase.querySelectorAll('.character-details').forEach(panel => panel.remove());
+            showcase.querySelectorAll('.character-card.expanded').forEach(c => c.classList.remove('expanded'));
+            
+            // Get all cards in their current order
+            const cards = Array.from(showcase.querySelectorAll('.character-card'));
+            const clickedIndex = cards.indexOf(card);
+            
+            // Calculate rotation needed to make clicked card second
+            const rotationIndex = (clickedIndex - 1 + cards.length) % cards.length;
+            
+            // Create new order by rotating the array
+            const newOrder = [
+                ...cards.slice(rotationIndex),
+                ...cards.slice(0, rotationIndex)
+            ];
+            
+            // Clear showcase
+            showcase.innerHTML = '';
+            
+            // Add cards back in new order
+            newOrder.forEach((c, index) => {
+                showcase.appendChild(c);
+                // Insert details panel after the second card (index 1)
+                if (index === 1) {
+                    const detailsPanel = document.createElement('div');
+                    detailsPanel.classList.add('character-details');
+                    
+                    const name = c.querySelector('h3')?.innerText || 'Character Name';
+                    const info = c.querySelector('p')?.innerText || 'Character Info';
+                    const link = c.getAttribute('data-link') || '#';
+                    
+                    detailsPanel.innerHTML = `
+                        <h3>${name}</h3>
+                        <p>${info}</p>
+                        <a href="${link}" class="character-page-link" target="_blank">Visit Page</a>
+                        <br>
+                        <button class="close-details">Close</button>
+                    `;
+                    
+                    c.classList.add('expanded');
+                    showcase.appendChild(detailsPanel);
+                }
+            });
+            
+            // Scroll the clicked card into view
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            
+            // Add click handler to close button
+            const detailsPanel = showcase.querySelector('.character-details');
+            if (detailsPanel) {
+                detailsPanel.querySelector('.close-details').addEventListener('click', () => {
+                    detailsPanel.remove();
+                    card.classList.remove('expanded');
+                });
+            }
+        });
+    });
+});
+
+// Example: toggle wide mode
+const sorterMenu = document.getElementById('character-sorter-menu');
+sorterMenu.classList.add('visible');  // Open the menu
+sorterMenu.classList.add('wide');     // Make it wider
+
+</script>
+</body>
+</html>
