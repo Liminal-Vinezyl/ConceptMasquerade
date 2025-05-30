@@ -227,23 +227,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let hasSnapped = false;
     let isSnapping = false;
 
+    // Check if required elements exist
     if (!charactersSection || !normalMenu || !sorterMenu || !scrollTopButton) return;
 
     // Function to handle scroll to top
     function scrollToTop(e) {
         e.preventDefault();
-        
-        // Disable snap temporarily
         document.documentElement.classList.remove('snap-enabled');
         hasSnapped = false;
-        
-        // Scroll to top
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        
-        // Remove character section visibility
         charactersSection.classList.remove('visible');
         sorterMenu.classList.remove('visible');
         normalMenu.classList.remove('hidden');
@@ -255,7 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function onScroll() {
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        const isScrollingDown = currentScroll > lastScrollTop;
 
         // Add scrolled class to header when scrolling down past hero
         if (currentScroll > 50) {
@@ -264,12 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('.sticky-header').classList.remove('scrolled');
         }
 
-        // Check if we're in the characters section for menu changes
-        const isInCharactersSection = 
-            currentScroll >= (charactersSection.offsetTop - window.innerHeight * 0.1) && 
-            currentScroll < (charactersSection.offsetTop + charactersSection.offsetHeight);
-
-        if (isInCharactersSection) {
+        // Check if we're in the characters section
+        const charactersSectionTop = charactersSection.offsetTop - window.innerHeight * 0.1;
+        const charactersSectionBottom = charactersSection.offsetTop + charactersSection.offsetHeight;
+        
+        if (currentScroll >= charactersSectionTop && currentScroll < charactersSectionBottom) {
             normalMenu.classList.add('hidden');
             sorterMenu.classList.add('visible');
             charactersSection.classList.add('visible');
@@ -281,14 +274,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Update lastScrollTop
         lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
 
+    // Add scroll event listener
     window.addEventListener('scroll', onScroll);
-
-    // Call onScroll once on page load to set initial state
-    onScroll();
+    
+    // Call onScroll once to set initial state
+    requestAnimationFrame(() => {
+        onScroll();
+        charactersSection.classList.add('visible');
+    });
 
     // Character showcase scroll handlers
     leftArrow?.addEventListener('click', () => {
@@ -360,43 +356,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelectorAll('.character-card').forEach(card => {
-        card.addEventListener('click', function() {
-            // Handle collapse if already expanded
-            if(card.classList.contains('expanded')) {
-                const existingPanel = card.nextElementSibling;
-                if(existingPanel && existingPanel.classList.contains('character-details')) {
-                    existingPanel.remove();
-                    card.classList.remove('expanded');
-                    return;
-                }
-            }
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
             const showcase = card.closest('.character-showcase');
             
-            // Remove existing panels and reset expanded states
+            // Remove any existing panels
             showcase.querySelectorAll('.character-details').forEach(panel => panel.remove());
             showcase.querySelectorAll('.character-card.expanded').forEach(c => c.classList.remove('expanded'));
             
-            // Get all cards in their current order
+            // Get all cards and calculate new order
             const cards = Array.from(showcase.querySelectorAll('.character-card'));
             const clickedIndex = cards.indexOf(card);
-            
-            // Calculate rotation needed to make clicked card second
             const rotationIndex = (clickedIndex - 1 + cards.length) % cards.length;
             
-            // Create new order by rotating the array
+            // Create new order by rotating array
             const newOrder = [
                 ...cards.slice(rotationIndex),
                 ...cards.slice(0, rotationIndex)
             ];
             
-            // Clear showcase
+            // Clear showcase and add cards back in new order
             showcase.innerHTML = '';
-            
-            // Add cards back in new order
             newOrder.forEach((c, index) => {
                 showcase.appendChild(c);
-                // Insert details panel after the second card (index 1)
+                
+                // After second card (index 1), add the details panel
                 if (index === 1) {
                     const detailsPanel = document.createElement('div');
                     detailsPanel.classList.add('character-details');
@@ -406,51 +392,91 @@ document.addEventListener('DOMContentLoaded', () => {
                     const link = c.getAttribute('data-link') || '#';
                     
                     detailsPanel.innerHTML = `
-                        <h3>${name}</h3>
-                        <p>${info}</p>
-                        <a href="${link}" class="character-page-link" target="_blank">Visit Page</a>
-                        <br>
-                        <button class="close-details">Close</button>
+                        <button class="menu-arrow left">←</button>
+                        <div class="details-content">
+                            <h3>${name}</h3>
+                            <p>${info}</p>
+                            <a href="${link}" class="character-page-link" target="_blank">Visit Page</a>
+                            <br>
+                            <button class="close-details">Close</button>
+                        </div>
+                        <button class="menu-arrow right">→</button>
                     `;
+                    
+                    let currentCard = c;
+                    
+                    // Set up menu arrows
+                    detailsPanel.querySelector('.menu-arrow.left').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const cardsArray = Array.from(showcase.querySelectorAll('.character-card'));
+                        const prevIndex = (cardsArray.indexOf(currentCard) - 1 + cardsArray.length) % cardsArray.length;
+                        currentCard = cardsArray[prevIndex];
+                        
+                        const newName = currentCard.querySelector('h3')?.innerText || 'Character Name';
+                        const newInfo = currentCard.querySelector('p')?.innerText || 'Character Info';
+                        const newLink = currentCard.getAttribute('data-link') || '#';
+                        
+                        detailsPanel.querySelector('.details-content').innerHTML = `
+                            <h3>${newName}</h3>
+                            <p>${newInfo}</p>
+                            <a href="${newLink}" class="character-page-link" target="_blank">Visit Page</a>
+                            <br>
+                            <button class="close-details">Close</button>
+                        `;
+                    });
+                    
+                    detailsPanel.querySelector('.menu-arrow.right').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const cardsArray = Array.from(showcase.querySelectorAll('.character-card'));
+                        const nextIndex = (cardsArray.indexOf(currentCard) + 1) % cardsArray.length;
+                        currentCard = cardsArray[nextIndex];
+                        
+                        const newName = currentCard.querySelector('h3')?.innerText || 'Character Name';
+                        const newInfo = currentCard.querySelector('p')?.innerText || 'Character Info';
+                        const newLink = currentCard.getAttribute('data-link') || '#';
+                        
+                        detailsPanel.querySelector('.details-content').innerHTML = `
+                            <h3>${newName}</h3>
+                            <p>${newInfo}</p>
+                            <a href="${newLink}" class="character-page-link" target="_blank">Visit Page</a>
+                            <br>
+                            <button class="close-details">Close</button>
+                        `;
+                    });
                     
                     c.classList.add('expanded');
                     showcase.appendChild(detailsPanel);
+                    
+                    // Add click handler to close button
+                    detailsPanel.querySelector('.close-details').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        detailsPanel.remove();
+                        c.classList.remove('expanded');
+                    });
                 }
             });
-            
-            // Scroll the clicked card into view
-            card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            
-            // Add click handler to close button
-            const detailsPanel = showcase.querySelector('.character-details');
-            if (detailsPanel) {
-                detailsPanel.querySelector('.close-details').addEventListener('click', () => {
-                    detailsPanel.remove();
-                    card.classList.remove('expanded');
-                });
-            }
-
-            setTimeout(() => {
-                function handleClickOutside(event) {
-                    // Get the bounding rectangle of the details panel
-                    const rect = detailsPanel.getBoundingClientRect();
-                    // Calculate the left boundary of the right half
-                    const rightHalfLeft = rect.left + (rect.width / 5);
-                    // If the click is NOT inside the right half of the panel:
-                    if (!(event.clientX >= rightHalfLeft &&
-                          event.clientX <= rect.right &&
-                          event.clientY >= rect.top &&
-                          event.clientY <= rect.bottom)) {
-                        detailsPanel.remove();
-                        card.classList.remove('expanded');
-                        document.removeEventListener('click', handleClickOutside);
-                    }
-                }
-                // Add the listener after a brief delay to prevent immediate trigger
-                document.addEventListener('click', handleClickOutside);
-            }, 0);
         });
     });
+});
+
+// Add to your character card click handler where you create the details panel
+document.addEventListener('click', function(event) {
+    const detailsPanel = document.querySelector('.character-details');
+    if (!detailsPanel) return;
+    
+    // Check if click is on a menu arrow or scroll arrow
+    const isArrowClick = event.target.closest('.menu-arrow') || 
+                        event.target.closest('.scroll-arrow');
+    
+    // Check if click is inside details panel
+    const isPanelClick = event.target.closest('.character-details');
+    
+    // Only close if click is outside panel AND not on any arrows
+    if (!isPanelClick && !isArrowClick) {
+        detailsPanel.remove();
+        document.querySelectorAll('.character-card.expanded')
+            .forEach(card => card.classList.remove('expanded'));
+    }
 });
 
 </script>
